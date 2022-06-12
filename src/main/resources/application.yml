@@ -1,0 +1,13 @@
+server:
+  port: 8075
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springbootblogdb
+    username: biboran
+    password: biboran
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
