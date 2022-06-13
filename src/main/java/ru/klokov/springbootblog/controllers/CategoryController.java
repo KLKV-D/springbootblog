@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1/categories")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
     private CategoryService categoryService;
     private ModelMapper modelMapper;

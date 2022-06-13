@@ -1,12 +1,12 @@
 package ru.klokov.springbootblog.dto.category;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CategoryResponse {
     private Long id;
     private String name;
