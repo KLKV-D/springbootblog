@@ -9,12 +9,13 @@ import ru.klokov.springbootblog.dto.category.CategoryResponse;
 import ru.klokov.springbootblog.entities.Category;
 import ru.klokov.springbootblog.services.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/categories")
-@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
     private CategoryService categoryService;
     private ModelMapper modelMapper;
@@ -42,10 +43,23 @@ public class CategoryController {
         return ResponseEntity.ok(modelMapper.map(categoryService.getCategoryById(id), CategoryResponse.class));
     }
 
+//    public ResponseEntity<CategoryResponse> createCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
+//        CategoryResponse categoryResponse;
+//        Category category = modelMapper.map(categoryRequest, Category.class);
+//        try {
+//            categoryResponse = modelMapper.map(categoryService.createCategory(category), CategoryResponse.class);
+//            return ResponseEntity.ok(categoryResponse);
+//        }
+//        catch (ResourceNotFoundException resourceNotFoundException) {
+//            categoryResponse = modelMapper.map(category, CategoryResponse.class);
+//            return new ResponseEntity<>(categoryResponse, HttpStatus.CONFLICT);
+//        }
+//    }
     @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest categoryRequest) {
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody @Valid CategoryRequest categoryRequest) {
         Category category = modelMapper.map(categoryRequest, Category.class);
-        return ResponseEntity.ok(modelMapper.map(categoryService.createCategory(category), CategoryResponse.class));
+        CategoryResponse createdCategoryResponse = modelMapper.map(categoryService.createCategory(category), CategoryResponse.class);
+        return ResponseEntity.ok(createdCategoryResponse);
     }
 
     @PutMapping(value = "/{id}")

@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.klokov.springbootblog.entities.Category;
-import ru.klokov.springbootblog.exceptions.ResourceAlreadyExists;
+import ru.klokov.springbootblog.exceptions.ResourceAlreadyExistsException;
 import ru.klokov.springbootblog.repositories.CategoryRepository;
 import ru.klokov.springbootblog.services.impl.CategoryServiceImpl;
 
@@ -91,7 +91,7 @@ class CategoryServiceImplTest {
     void shouldThrowResourceAlreadyExistsException() {
         given(categoryRepository.findByName(category.getName())).willReturn(Optional.of(category));
 
-        assertThrows(ResourceAlreadyExists.class, () -> {
+        assertThrows(ResourceAlreadyExistsException.class, () -> {
             categoryService.createCategory(category);
         });
 
